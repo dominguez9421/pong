@@ -25,9 +25,10 @@ var score = {
 };
 var playerScoreText;
 var aiScoreText;
+var gameOver = false;
 
 function create() {
-  //  We're going to be using physics, so enable the Arcade Physics system
+  // using physics, so enable the Arcade Physics system
   game.physics.startSystem(Phaser.Physics.ARCADE);
 
   // Two invisible walls for up and down
@@ -95,11 +96,12 @@ function create() {
     fill: "#fff"
   });
 
-  // Score
+  // Player Score
   playerScoreText = game.add.text(200, 125, score.player, {
     fontSize: "75px",
     fill: "#fff"
   });
+  // AI score
   playerScoreText.anchor.setTo(0.5, 0.5);
   aiScoreText = game.add.text(600, 125, score.ai, {
     fontSize: "75px",
@@ -109,6 +111,7 @@ function create() {
 }
 
 function update() {
+  if (gameOver) return;
   // Collision between ball and paddles
   game.physics.arcade.collide(paddles, ball);
 
@@ -168,13 +171,26 @@ function setVelocity(ball) {
 }
 
 function updateScore() {
+  //Point system increase
   if (ball.body.velocity.x > 0) {
     score.player += 1;
     console.log(score.player);
     playerScoreText.text = score.player;
+    if (score.player >= 1) {
+      endGame();
+    }
   } else {
-    score.ai += 1;
+    score.ai += 2;
     console.log(score.ai);
     aiScoreText.text = score.ai;
   }
+}
+
+function endGame() {
+  gameOver = true;
+  helpText = game.add.text(16, 16, "You win", {
+    fontSize: "32px",
+    fill: "#fff"
+  });
+  setTimeout(() => window.history.back(), 2000);
 }
