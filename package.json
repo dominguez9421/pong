@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/dominguez9421/pong/issues"
   },
-  "homepage": "https://github.com/dominguez9421/pong#readme"
+  "homepage": "https://github.com/dominguez9421/pong#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }

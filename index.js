@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-let port = 3050;
+let port = 3000;
 
 app.get("/:page", (req, res, next) => {
   let page = req.params.page;
